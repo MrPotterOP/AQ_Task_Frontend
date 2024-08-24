@@ -4,8 +4,6 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'rec
 
 function Customers({data}) {
 
-    console.log(data);
-
     return ( 
         <ResponsiveContainer width="100%" height="100%">
         <AreaChart

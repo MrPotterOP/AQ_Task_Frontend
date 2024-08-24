@@ -1,14 +1,37 @@
 import './App.css';
 
-import React from 'react';
+import React,{useState, useEffect} from 'react';
+
+import axios from 'axios';
 
 import SalesChart from './components/SalesChart';
 import NewCustomersChart from './components/NewCustomersChart';
 import RepeatCustomers from "./components/RepeatCustomers";
 import WorldMap from "./components/WorldMap";
-import CustomerCohort from './components/CustomerCohort';
+import CustomersCohortChart from './components/Charts/CustomersCohartChart';
 
 function App() {
+
+
+    const [chartData, setChartData] = useState(null);
+
+
+    const fetchData = () => {
+
+        axios.get('https://aq-task-backend.onrender.com/customerscohorts').then((response) => {
+            setChartData(response.data);
+        }).catch((error) => {
+            console.log(error);
+            setChartData("Error");
+        });
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
+
 
 
   return (
@@ -73,6 +96,13 @@ function App() {
           </div>
 
           <main>
+
+                <div className={(chartData === null) ? "loading-screen" : "loading-screen hidden"}>
+                    <div className="loader"></div>
+
+                    <p>We are using a shared free hosting solution at backend, it may take upto 50 seconds at first to spin up the server</p>
+                </div>
+
               <div className="header">
                   <div className='welcome'>
                       <p>Hey, Shubham</p>
@@ -109,7 +139,16 @@ function App() {
                       </div>
 
                       <div className="sales-chart-box">
-                        <CustomerCohort />
+                        {/* <CustomerCohort /> */}
+
+                        <div className="sales-chart">
+                            <div className='chart-head'>
+                                <h2 className='chart-title'>Customers Cohort</h2>
+                            </div>
+                            <div className='chart-wrapper'>
+                                {chartData && <CustomersCohortChart data={chartData.clvByCohorts} />}
+                            </div>
+                        </div>
                       </div>
 
                       <div className="sales-chart-box">
