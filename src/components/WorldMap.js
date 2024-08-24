@@ -104,7 +104,7 @@ const WorldMap = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/geographcustomers")
+      .get("https://aq-task-backend.onrender.com/geographcustomers")
       .then((response) => {
         setData(generateCoordinates(response.data.geographicalDistribution));
       })

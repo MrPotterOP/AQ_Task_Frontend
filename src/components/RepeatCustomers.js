@@ -13,7 +13,7 @@ function NewCustomersChart() {
 
     const fetchData = () => {
 
-        axios.get('http://localhost:8080/repeatcustomers?period=' + period.current.value).then((response) => {
+        axios.get('https://aq-task-backend.onrender.com/repeatcustomers?period=' + period.current.value).then((response) => {
             setChartData(response.data);
         }).catch((error) => {
             console.log(error);
